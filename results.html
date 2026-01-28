@@ -3,18 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wyniki Ankiety</title>
+    <title>Skala Irracjonalnego Odwlekania - Kwestionariusz Prokrastynacji</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="results-card">
+        <!-- Survey Form -->
+        <div class="survey-card" id="surveySection">
+            <div class="header">
+                <h1>📋 Skala Irracjonalnego Odwlekania</h1>
+                <p class="subtitle">P. Steel (2010) | Tłumaczenie: Piotr Modzelewski (2016)</p>
+            </div>
+
+            <div class="instructions">
+                <p><strong>Instrukcja:</strong> Zapoznaj się z poniższą skalą i odpowiedz na pytania zgodnie z nią.</p>
+                <div class="scale-legend">
+                    <div class="scale-item">1 - Bardzo rzadko lub nieprawdziwe dla mnie</div>
+                    <div class="scale-item">2 - Rzadko prawdziwe dla mnie</div>
+                    <div class="scale-item">3 - Czasami prawdziwe dla mnie</div>
+                    <div class="scale-item">4 - Często prawdziwe dla mnie</div>
+                    <div class="scale-item">5 - Bardzo często prawdziwe dla mnie</div>
+                </div>
+            </div>
+
+            <form id="procrastinationForm">
+                <div class="question-block">
+                    <label class="question">1. Odwlekam zadania ponad rozsądny czas</label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q1" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q1" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q1" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q1" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q1" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">2. Robię wszystko kiedy uważam, że to musi być zrobione <span class="reversed">(odwrócone)</span></label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q2" value="5" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q2" value="4">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q2" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q2" value="2">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q2" value="1">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">3. Często żałuję, że nie zająłem się zadaniem wcześniej</label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q3" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q3" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q3" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q3" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q3" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">4. Są aspekty mojego życia, które odkładam, chociaż wiem, że nie powinienem</label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q4" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q4" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q4" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q4" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q4" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">5. Jeśli jest coś co powinienem wykonać, robię to zanim przejdę do łatwiejszego zadania <span class="reversed">(odwrócone)</span></label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q5" value="5" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q5" value="4">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q5" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q5" value="2">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q5" value="1">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">6. Odkładam rzeczy do zrobienia tak długo, że mój dobrostan lub efektywność tracą na tym</label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q6" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q6" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q6" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q6" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q6" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">7. Pod koniec dnia wiem, że mógłbym spędzić czas lepiej</label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q7" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q7" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q7" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q7" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q7" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">8. Spędzam mój czas mądrze <span class="reversed">(odwrócone)</span></label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q8" value="5" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q8" value="4">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q8" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q8" value="2">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q8" value="1">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <label class="question">9. Kiedy powinienem robić jedną rzecz, robię inną</label>
+                    <div class="scale-group">
+                        <label class="scale-option">
+                            <input type="radio" name="q9" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q9" value="2">
+                            <span>2</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q9" value="3">
+                            <span>3</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q9" value="4">
+                            <span>4</span>
+                        </label>
+                        <label class="scale-option">
+                            <input type="radio" name="q9" value="5">
+                            <span>5</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>Oblicz wynik</span>
+                    <span class="arrow">→</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-card" id="resultsSection" style="display: none;">
             <div class="results-header">
-                <h1>📊 Wyniki Ankiety</h1>
-                <p class="subtitle">Analiza zebranych danych</p>
+                <h1>📊 Twój Wynik</h1>
+                <p class="subtitle" id="scoreSubtitle">Skala Irracjonalnego Odwlekania</p>
             </div>
 
             <div class="results-content">
+                <!-- Personal Score -->
+                <div class="personal-result">
+                    <div class="score-display">
+                        <div class="score-number" id="personalScore">0</div>
+                        <div class="score-label">Punktów</div>
+                    </div>
+                    <div class="interpretation" id="interpretation"></div>
+                </div>
+
+                <hr style="border: none; border-top: 2px solid var(--border); margin: 3rem 0;">
                 <!-- Statistics Cards -->
                 <div class="stat-cards">
                     <div class="stat-card">
@@ -31,55 +302,33 @@
                     </div>
                 </div>
 
-                <!-- Question 1: Quality Rating -->
+                <!-- Question 1: Score Distribution -->
                 <div class="result-section">
-                    <h2>⭐ Ocena Jakości Usług</h2>
+                    <h2>📊 Rozkład Wyników</h2>
                     <div class="chart-container">
                         <div id="ratingChart" class="bar-chart"></div>
                     </div>
                 </div>
 
-                <!-- Question 2: Recommendation -->
+                <!-- Question 3: Question Averages -->
                 <div class="result-section">
-                    <h2>💬 Czy poleciłbyś nas znajomym?</h2>
-                    <div class="chart-container">
-                        <div id="recommendChart"></div>
-                    </div>
-                </div>
-
-                <!-- Question 3: Frequency -->
-                <div class="result-section">
-                    <h2>📅 Jak często korzystasz z naszych usług?</h2>
+                    <h2>📈 Średnie Odpowiedzi na Poszczególne Pytania</h2>
                     <div class="chart-container">
                         <div id="frequencyChart" class="bar-chart"></div>
                     </div>
                 </div>
 
-                <!-- Question 4: Important Aspects -->
-                <div class="result-section">
-                    <h2>🎯 Najważniejsze Aspekty</h2>
-                    <div class="chart-container">
-                        <div id="aspectsChart" class="bar-chart"></div>
-                    </div>
+                <div style="margin-top: 3rem; text-align: center; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                    <button id="newSurveyBtn" class="submit-btn" style="max-width: 300px;">
+                        <span>📋 Wypełnij ponownie</span>
+                    </button>
+                    <button id="generateDataBtn" class="back-btn" style="max-width: 300px;">
+                        🎲 Pokaż przykładowe dane
+                    </button>
+                    <button id="clearDataBtn" class="back-btn" style="max-width: 200px;">
+                        🗑️ Wyczyść dane
+                    </button>
                 </div>
-
-                <!-- Question 6: Age Distribution -->
-                <div class="result-section">
-                    <h2>👥 Rozkład Wieku Respondentów</h2>
-                    <div class="chart-container">
-                        <div id="ageChart" class="bar-chart"></div>
-                    </div>
-                </div>
-
-                <!-- Question 5: Comments -->
-                <div class="result-section">
-                    <h2>💭 Komentarze i Sugestie</h2>
-                    <div class="chart-container">
-                        <div id="commentsList" class="comments-list"></div>
-                    </div>
-                </div>
-
-                <a href="index.html" class="back-btn">← Wróć do ankiety</a>
             </div>
         </div>
     </div>

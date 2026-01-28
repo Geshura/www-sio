@@ -1,5 +1,5 @@
 // Simulate database with localStorage
-const STORAGE_KEY = 'surveyResponses';
+const STORAGE_KEY = 'procrastinationResponses';
 
 // Initialize or get existing responses
 function getResponses() {
@@ -15,39 +15,146 @@ function saveResponse(response) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(responses));
 }
 
-// Handle form submission
-const form = document.getElementById('surveyForm');
+// Handle form submission for procrastination questionnaire
+const form = document.getElementById('procrastinationForm');
 if (form) {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Collect form data
+        // Collect form data and calculate score
         const formData = new FormData(form);
-        const response = {};
+        let totalScore = 0;
         
-        // Handle single-value inputs
-        response.q1 = formData.get('q1');
-        response.q2 = formData.get('q2');
-        response.q3 = formData.get('q3');
-        response.q5 = formData.get('q5');
-        response.q6 = formData.get('q6');
+        for (let i = 1; i <= 9; i++) {
+            const value = parseInt(formData.get(`q${i}`));
+            totalScore += value;
+        }
         
-        // Handle multi-value checkbox
-        response.q4 = formData.getAll('q4');
+        const response = {
+            score: totalScore,
+            answers: {}
+        };
+        
+        for (let i = 1; i <= 9; i++) {
+            response.answers[`q${i}`] = parseInt(formData.get(`q${i}`));
+        }
         
         // Save response
         saveResponse(response);
         
-        // Add success animation
-        const button = form.querySelector('.submit-btn');
-        button.textContent = '✓ Dziękujemy!';
-        button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-        
-        // Redirect to results page
-        setTimeout(() => {
-            window.location.href = 'results.html';
-        }, 1000);
+        // Show results
+        showResults(totalScore);
     });
+}
+
+function showResults(score) {
+    document.getElementById('surveySection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('personalScore').textContent = score;
+    
+    // Determine interpretation
+    let interpretation = '';
+    if (score <= 19) {
+        interpretation = `
+            <h3>🎯 Dolne 10% - Mistrzowskie zarządzanie czasem</h3>
+            <p><strong>Twoja mantra:</strong> "Najpierw rzeczy najważniejsze"</p>
+            <p>Gratulacje! Należysz do elity osób, które skutecznie zarządzają swoim czasem. Odwlekanie zadań praktycznie Ci nie przeszkadza. Kontynuuj swoje dobre nawyki i być może podziel się swoimi strategiami z innymi!</p>
+        `;
+    } else if (score <= 23) {
+        interpretation = `
+            <h3>✅ Dolne 10-25% - Bardzo dobra samodyscyplina</h3>
+            <p>Świetnie sobie radzisz z zarządzaniem czasem! Prokrastynacja pojawia się u Ciebie rzadko i nie stanowi poważnego problemu. Twoje nawyki są wzorem dla innych.</p>
+        `;
+    } else if (score <= 31) {
+        interpretation = `
+            <h3>⚖️ Środkowe 50% - Przeciętny prokrastynator</h3>
+            <p>Jesteś w grupie większości ludzi. Czasami odkładasz sprawy na później, ale nie jest to jeszcze poważny problem. Rozważ wprowadzenie lepszych nawyków planowania i priorytetyzacji zadań.</p>
+        `;
+    } else if (score <= 36) {
+        interpretation = `
+            <h3>⚠️ Górne 10-25% - Wyraźna tendencja do prokrastynacji</h3>
+            <p>Prokrastynacja stanowi dla Ciebie istotny problem. Często odkładasz ważne zadania, co może wpływać na Twoją efektywność i dobrostan. Warto poważnie zastanowić się nad strategiami radzenia sobie z tym nawykiem.</p>
+        `;
+    } else {
+        interpretation = `
+            <h3>🚨 Górne 10% - Chroniczna prokrastynacja</h3>
+            <p><strong>Twoje drugie imię:</strong> "Jutro"</p>
+            <p>Prokrastynacja jest dla Ciebie poważnym problemem, który prawdopodobnie znacząco wpływa na różne obszary Twojego życia. Rozważ skorzystanie z pomocy specjalisty lub wdrożenie systematycznych technik zarządzania czasem, takich jak metoda Pomodoro, ustalanie konkretnych terminów czy dzielenie dużych zadań na mniejsze kroki.</p>
+        `;
+    }
+    
+    document.getElementById('interpretation').innerHTML = interpretation;
+    
+    // Scroll to results
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    
+    // Update statistics
+    updateStatistics();
+}
+
+// Generate sample data for procrastination
+function generateSampleData() {
+    const sampleResponses = [];
+    const numResponses = 100;
+    
+    for (let i = 0; i < numResponses; i++) {
+        // Generate realistic distribution
+        const baseScore = Math.floor(Math.random() * 45) + 9; // 9-45 range
+        const response = {
+            score: baseScore,
+            answers: {},
+            timestamp: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString(),
+            id: Date.now() + i
+        };
+        
+        // Generate individual answers that sum to baseScore
+        let remaining = baseScore;
+        for (let j = 1; j <= 8; j++) {
+            const maxVal = Math.min(5, remaining - (9 - j));
+            const minVal = Math.max(1, remaining - 5 * (9 - j));
+            const val = Math.floor(Math.random() * (maxVal - minVal + 1)) + minVal;
+            response.answers[`q${j}`] = val;
+            remaining -= val;
+        }
+        response.answers.q9 = remaining;
+        
+        sampleResponses.push(response);
+    }
+    
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleResponses));
+    location.reload();
+}
+
+// Clear all data
+function clearAllData() {
+    if (confirm('Czy na pewno chcesz usunąć wszystkie dane?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+    }
+}
+
+// Show new survey
+function showNewSurvey() {
+    document.getElementById('surveySection').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('procrastinationForm').reset();
+    document.getElementById('surveySection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Add event listeners for buttons
+const generateBtn = document.getElementById('generateDataBtn');
+if (generateBtn) {
+    generateBtn.addEventListener('click', generateSampleData);
+}
+
+const clearBtn = document.getElementById('clearDataBtn');
+if (clearBtn) {
+    clearBtn.addEventListener('click', clearAllData);
+}
+
+const newSurveyBtn = document.getElementById('newSurveyBtn');
+if (newSurveyBtn) {
+    newSurveyBtn.addEventListener('click', showNewSurvey);
 }
 
 // Calculate statistics for results page
@@ -60,67 +167,109 @@ function calculateStats() {
     
     const stats = {
         totalResponses: responses.length,
-        avgRating: 0,
-        q1Distribution: { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 },
-        q2Distribution: { 'tak': 0, 'moze': 0, 'nie': 0 },
-        q3Distribution: { 'codziennie': 0, 'tygodniowo': 0, 'miesiecznie': 0, 'rzadko': 0 },
-        q4Distribution: { 'cena': 0, 'jakosc': 0, 'szybkosc': 0, 'obsluga': 0, 'funkcje': 0 },
-        q6Distribution: { '18-25': 0, '26-35': 0, '36-45': 0, '46-55': 0, '56+': 0 },
-        comments: []
+        avgScore: 0,
+        scoreDistribution: {
+            '1-19': 0,
+            '20-23': 0,
+            '24-31': 0,
+            '32-36': 0,
+            '37-45': 0
+        },
+        questionAverages: {}
     };
     
-    let totalRating = 0;
+    let totalScore = 0;
+    
+    // Initialize question averages
+    for (let i = 1; i <= 9; i++) {
+        stats.questionAverages[`q${i}`] = 0;
+    }
     
     responses.forEach(r => {
-        // Q1 - Rating
-        totalRating += parseInt(r.q1);
-        stats.q1Distribution[r.q1]++;
+        totalScore += r.score;
         
-        // Q2 - Recommendation
-        stats.q2Distribution[r.q2]++;
+        // Score distribution
+        if (r.score <= 19) stats.scoreDistribution['1-19']++;
+        else if (r.score <= 23) stats.scoreDistribution['20-23']++;
+        else if (r.score <= 31) stats.scoreDistribution['24-31']++;
+        else if (r.score <= 36) stats.scoreDistribution['32-36']++;
+        else stats.scoreDistribution['37-45']++;
         
-        // Q3 - Frequency
-        stats.q3Distribution[r.q3]++;
-        
-        // Q4 - Important aspects (multiple choice)
-        r.q4.forEach(aspect => {
-            stats.q4Distribution[aspect]++;
-        });
-        
-        // Q6 - Age
-        stats.q6Distribution[r.q6]++;
-        
-        // Q5 - Comments
-        if (r.q5 && r.q5.trim()) {
-            stats.comments.push(r.q5);
+        // Question averages
+        for (let i = 1; i <= 9; i++) {
+            stats.questionAverages[`q${i}`] += r.answers[`q${i}`];
         }
     });
     
-    stats.avgRating = (totalRating / responses.length).toFixed(1);
+    stats.avgScore = (totalScore / responses.length).toFixed(1);
+    
+    // Calculate averages for each question
+    for (let i = 1; i <= 9; i++) {
+        stats.questionAverages[`q${i}`] = (stats.questionAverages[`q${i}`] / responses.length).toFixed(2);
+    }
     
     return stats;
 }
 
-// Render results page
-if (window.location.pathname.endsWith('results.html')) {
+function updateStatistics() {
     const stats = calculateStats();
     
     if (!stats) {
-        document.body.innerHTML = `
-            <div class="container">
-                <div class="results-card">
-                    <div class="results-header">
-                        <h1>📊 Brak danych</h1>
-                        <p class="subtitle">Nie ma jeszcze żadnych odpowiedzi w ankiecie.</p>
-                    </div>
-                    <a href="index.html" class="back-btn">← Wróć do ankiety</a>
-                </div>
-            </div>
-        `;
         return;
     }
     
-    renderResults(stats);
+    // Update stats cards
+    document.getElementById('totalResponses').textContent = stats.totalResponses;
+    document.getElementById('avgRating').textContent = stats.avgScore;
+    
+    // Calculate percentage in high procrastination range
+    const highProcrastPercent = Math.round(
+        ((stats.scoreDistribution['32-36'] + stats.scoreDistribution['37-45']) / stats.totalResponses) * 100
+    );
+    document.getElementById('recommendPercent').textContent = stats.totalResponses;
+    document.querySelector('#recommendPercent').previousElementSibling.textContent = stats.avgScore;
+    
+    // Score distribution chart
+    renderBarChart('ratingChart', stats.scoreDistribution, {
+        '1-19': '🎯 Dolne 10% (1-19 pkt)',
+        '20-23': '✅ Dolne 10-25% (20-23 pkt)',
+        '24-31': '⚖️ Środkowe 50% (24-31 pkt)',
+        '32-36': '⚠️ Górne 10-25% (32-36 pkt)',
+        '37-45': '🚨 Górne 10% (37+ pkt)'
+    }, stats.totalResponses);
+    
+    // Question averages chart
+    const questionLabels = {
+        'q1': 'P1: Odwlekam zadania',
+        'q2': 'P2: Robię kiedy trzeba (odwr.)',
+        'q3': 'P3: Żałuję odkładania',
+        'q4': 'P4: Odkładam aspekty życia',
+        'q5': 'P5: Trudne najpierw (odwr.)',
+        'q6': 'P6: Tracę efektywność',
+        'q7': 'P7: Mógłbym lepiej',
+        'q8': 'P8: Mądre zarządzanie (odwr.)',
+        'q9': 'P9: Robię co innego'
+    };
+    
+    renderBarChart('frequencyChart', stats.questionAverages, questionLabels, 5, false);
+    
+    // Hide aspects and age charts for procrastination questionnaire
+    document.querySelector('#aspectsChart').parentElement.parentElement.style.display = 'none';
+    document.querySelector('#ageChart').parentElement.parentElement.style.display = 'none';
+    document.querySelector('#commentsList').parentElement.parentElement.style.display = 'none';
+    document.querySelector('#recommendChart').parentElement.parentElement.style.display = 'none';
+}
+
+// Render results page
+const stats = calculateStats();
+
+if (!stats) {
+    const generateBtn = document.getElementById('generateDataBtn');
+    if (generateBtn) {
+        generateBtn.innerHTML = '<span>🎲 Wygeneruj przykładowe dane</span>';
+    }
+} else {
+    updateStatistics();
 }
 
 function renderResults(stats) {
