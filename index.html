@@ -11,8 +11,10 @@
         <div class="theme-toggle" id="themeToggle" title="Przełącz tryb ciemny">
             <span class="theme-icon">🌙</span>
         </div>
-        <!-- Survey Form -->
-        <div class="survey-card" id="surveySection">
+        <!-- Survey Modal will be inserted here by JavaScript -->
+        
+        <!-- Start Button -->
+        <div class="survey-card" id="startSection">
             <div class="header">
                 <h1>📋 Skala Irracjonalnego Odwlekania</h1>
                 <p class="subtitle">P. Steel (2010) | Tłumaczenie: Piotr Modzelewski (2016)</p>
@@ -30,7 +32,17 @@
                 </div>
             </div>
 
-            <form id="procrastinationForm">
+            <div style="text-align: center; padding: 2rem;">
+                <p style="margin-bottom: 1.5rem; font-size: 1.05rem; color: var(--text-secondary);">Ankieta zawiera 9 pytań i zajmie Ci około 3-5 minut.</p>
+                <button id="startSurveyBtn" class="submit-btn">
+                    <span>🚀 Rozpocznij ankietę</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Hidden form with all questions (for reference) -->
+        <form id="procrastinationForm" style="display: none;">
                 <div class="question-block">
                     <label class="question">1. Odwlekam zadania ponad rozsądny czas</label>
                     <div class="scale-group">
@@ -287,39 +299,6 @@
                         <div class="score-label">Punktów</div>
                     </div>
                     <div class="interpretation" id="interpretation"></div>
-                </div>
-
-                <hr style="border: none; border-top: 2px solid var(--border); margin: 3rem 0;">
-                <!-- Statistics Cards -->
-                <div class="stat-cards">
-                    <div class="stat-card">
-                        <div class="number" id="totalResponses">0</div>
-                        <div class="label">Odpowiedzi</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="number" id="avgRating">0</div>
-                        <div class="label">Średnia Ocena</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="number" id="recommendPercent">0%</div>
-                        <div class="label">Rekomendacje</div>
-                    </div>
-                </div>
-
-                <!-- Question 1: Score Distribution -->
-                <div class="result-section">
-                    <h2>📊 Rozkład Wyników</h2>
-                    <div class="chart-container">
-                        <div id="ratingChart" class="bar-chart"></div>
-                    </div>
-                </div>
-
-                <!-- Question 3: Question Averages -->
-                <div class="result-section">
-                    <h2>📈 Średnie Odpowiedzi na Poszczególne Pytania</h2>
-                    <div class="chart-container">
-                        <div id="frequencyChart" class="bar-chart"></div>
-                    </div>
                 </div>
 
                 <div style="margin-top: 3rem; text-align: center; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">

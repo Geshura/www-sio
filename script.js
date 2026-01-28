@@ -73,6 +73,23 @@ if (document.readyState === 'loading') {
 // Local storage key for responses
 const STORAGE_KEY = 'procrastinationResponses';
 
+// Survey questions
+const SURVEY_QUESTIONS = [
+    { number: 1, text: 'Odwlekam zadania ponad rozsądny czas', reversed: false },
+    { number: 2, text: 'Robię wszystko kiedy uważam, że to musi być zrobione', reversed: true },
+    { number: 3, text: 'Często żałuję, że nie zajęłem się zadaniem wcześniej', reversed: false },
+    { number: 4, text: 'Są aspekty mojego życia, które odkładam, chociaż wiem, że nie powinienem', reversed: false },
+    { number: 5, text: 'Jeśli jest coś co powinienem wykonać, robię to zanim przejdę do łatwiejszego zadania', reversed: true },
+    { number: 6, text: 'Odkładam rzeczy do zrobienia tak długo, że mój dobrostan lub efektywność tracą na tym', reversed: false },
+    { number: 7, text: 'Pod koniec dnia wiem, że mógłbym spędzić czas lepiej', reversed: false },
+    { number: 8, text: 'Spędzam mój czas mądrze', reversed: true },
+    { number: 9, text: 'Kiedy powinienem robić jedną rzecz, robię inną', reversed: false }
+];
+
+// Current survey state
+let currentSurveyAnswers = {};
+let currentQuestionIndex = 0;
+
 // Initialize or get existing responses
 function getResponses() {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -87,75 +104,226 @@ function saveResponse(response) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(responses));
 }
 
+// Start modal survey
+function startModalSurvey() {
+    currentSurveyAnswers = {};
+    currentQuestionIndex = 0;
+    document.getElementById('surveySection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+    showModalQuestion();
+}
+
+// Show modal question
+function showModalQuestion() {
+    if (currentQuestionIndex >= SURVEY_QUESTIONS.length) {
+        // Calculate total score and show results
+        let totalScore = 0;
+        for (let i = 1; i <= 9; i++) {
+            totalScore += currentSurveyAnswers[`q${i}`];
+        }
+        
+        const response = {
+            score: totalScore,
+            answers: currentSurveyAnswers
+        };
+        
+        saveResponse(response);
+        showResults(totalScore);
+        return;
+    }
+    
+    const question = SURVEY_QUESTIONS[currentQuestionIndex];
+    const modal = document.getElementById('questionModal') || createQuestionModal();
+    
+    // Update modal content
+    document.getElementById('modalQuestionNumber').textContent = `Pytanie ${question.number} z 9`;
+    document.getElementById('modalQuestionText').textContent = question.text;
+    document.getElementById('progressBar').style.width = `${((currentQuestionIndex + 1) / 9) * 100}%`;
+    document.getElementById('progressPercentage').textContent = `${Math.round((currentQuestionIndex + 1) / 9 * 100)}%`;
+    
+    // Create scale options
+    const scaleContainer = document.getElementById('modalScaleOptions');
+    scaleContainer.innerHTML = '';
+    
+    for (let i = 1; i <= 5; i++) {
+        const label = document.createElement('label');
+        label.className = 'scale-option modal-scale-option';
+        label.innerHTML = `
+            <input type="radio" name="modalAnswer" value="${i}" class="modal-radio">
+            <span class="scale-value">${i}</span>
+        `;
+        scaleContainer.appendChild(label);
+    }
+    
+    // Set up event listeners
+    document.querySelectorAll('.modal-radio').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const qNumber = `q${question.number}`;
+            currentSurveyAnswers[qNumber] = parseInt(this.value);
+            
+            // Auto-advance after selection
+            setTimeout(() => {
+                currentQuestionIndex++;
+                showModalQuestion();
+            }, 300);
+        });
+    });
+    
+    // Show navigation buttons
+    const prevBtn = document.getElementById('prevQuestionBtn');
+    
+    prevBtn.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
+    
+    prevBtn.onclick = () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showModalQuestion();
+        }
+    };
+    
+    modal.style.display = 'flex';
+}
+
+function createQuestionModal() {
+    const modal = document.createElement('div');
+    modal.id = 'questionModal';
+    modal.className = 'question-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="progress-container">
+                <div class="progress-background">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-text" id="progressPercentage">0%</div>
+            </div>
+            
+            <div class="modal-header">
+                <div class="question-number" id="modalQuestionNumber"></div>
+            </div>
+            
+            <div class="modal-body">
+                <p class="modal-question" id="modalQuestionText"></p>
+                
+                <div class="scale-legend-modal">
+                    <div class="legend-item-modal"><strong>1</strong> - Bardzo rzadko</div>
+                    <div class="legend-item-modal"><strong>2</strong> - Rzadko</div>
+                    <div class="legend-item-modal"><strong>3</strong> - Czasami</div>
+                    <div class="legend-item-modal"><strong>4</strong> - Często</div>
+                    <div class="legend-item-modal"><strong>5</strong> - Bardzo często</div>
+                </div>
+                
+                <div class="modal-scale-options" id="modalScaleOptions"></div>
+            </div>
+            
+            <div class="modal-footer">
+                <button id="prevQuestionBtn" class="back-btn" style="display: none;">← Poprzednie pytanie</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    return modal;
+}
+
 // Handle form submission for procrastination questionnaire
 const form = document.getElementById('procrastinationForm');
 if (form) {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Collect form data and calculate score
-        const formData = new FormData(form);
-        let totalScore = 0;
-        
-        for (let i = 1; i <= 9; i++) {
-            const value = parseInt(formData.get(`q${i}`));
-            totalScore += value;
-        }
-        
-        const response = {
-            score: totalScore,
-            answers: {}
-        };
-        
-        for (let i = 1; i <= 9; i++) {
-            response.answers[`q${i}`] = parseInt(formData.get(`q${i}`));
-        }
-        
-        // Save response
-        saveResponse(response);
-        
-        // Show results
-        showResults(totalScore);
+        startModalSurvey();
+    });
+}
+
+// Start button
+const startBtn = document.getElementById('startSurveyBtn');
+if (startBtn) {
+    startBtn.addEventListener('click', function() {
+        document.getElementById('startSection').style.display = 'none';
+        startModalSurvey();
     });
 }
 
 function showResults(score) {
+    // Hide modal if open
+    const modal = document.getElementById('questionModal');
+    if (modal) modal.style.display = 'none';
+    
     document.getElementById('surveySection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
     document.getElementById('personalScore').textContent = score;
     
+    // Get threshold information
+    const thresholds = [
+        { min: 9, max: 19, category: '🎯 Dolne 10% - Mistrzowskie zarządzanie czasem', color: '#10b981' },
+        { min: 20, max: 23, category: '✅ Dolne 10-25% - Bardzo dobra samodyscyplina', color: '#34d399' },
+        { min: 24, max: 31, category: '⚖️ Środkowe 50% - Przeciętny prokrastynator', color: '#f59e0b' },
+        { min: 32, max: 36, category: '⚠️ Górne 10-25% - Wyraźna tendencja do prokrastynacji', color: '#fb923c' },
+        { min: 37, max: 45, category: '🚨 Górne 10% - Chroniczna prokrastynacja', color: '#ef4444' }
+    ];
+    
     // Determine interpretation
     let interpretation = '';
+    let userThreshold = null;
+    
     if (score <= 19) {
         interpretation = `
             <h3>🎯 Dolne 10% - Mistrzowskie zarządzanie czasem</h3>
             <p><strong>Twoja mantra:</strong> "Najpierw rzeczy najważniejsze"</p>
             <p>Gratulacje! Należysz do elity osób, które skutecznie zarządzają swoim czasem. Odwlekanie zadań praktycznie Ci nie przeszkadza. Kontynuuj swoje dobre nawyki i być może podziel się swoimi strategiami z innymi!</p>
         `;
+        userThreshold = 0;
     } else if (score <= 23) {
         interpretation = `
             <h3>✅ Dolne 10-25% - Bardzo dobra samodyscyplina</h3>
             <p>Świetnie sobie radzisz z zarządzaniem czasem! Prokrastynacja pojawia się u Ciebie rzadko i nie stanowi poważnego problemu. Twoje nawyki są wzorem dla innych.</p>
         `;
+        userThreshold = 1;
     } else if (score <= 31) {
         interpretation = `
             <h3>⚖️ Środkowe 50% - Przeciętny prokrastynator</h3>
             <p>Jesteś w grupie większości ludzi. Czasami odkładasz sprawy na później, ale nie jest to jeszcze poważny problem. Rozważ wprowadzenie lepszych nawyków planowania i priorytetyzacji zadań.</p>
         `;
+        userThreshold = 2;
     } else if (score <= 36) {
         interpretation = `
             <h3>⚠️ Górne 10-25% - Wyraźna tendencja do prokrastynacji</h3>
             <p>Prokrastynacja stanowi dla Ciebie istotny problem. Często odkładasz ważne zadania, co może wpływać na Twoją efektywność i dobrostan. Warto poważnie zastanowić się nad strategiami radzenia sobie z tym nawykiem.</p>
         `;
+        userThreshold = 3;
     } else {
         interpretation = `
             <h3>🚨 Górne 10% - Chroniczna prokrastynacja</h3>
             <p><strong>Twoje drugie imię:</strong> "Jutro"</p>
             <p>Prokrastynacja jest dla Ciebie poważnym problemem, który prawdopodobnie znacząco wpływa na różne obszary Twojego życia. Rozważ skorzystanie z pomocy specjalisty lub wdrożenie systematycznych technik zarządzania czasem, takich jak metoda Pomodoro, ustalanie konkretnych terminów czy dzielenie dużych zadań na mniejsze kroki.</p>
         `;
+        userThreshold = 4;
     }
     
     document.getElementById('interpretation').innerHTML = interpretation;
+    
+    // Add threshold information section
+    const thresholdHtml = `
+        <hr style="border: none; border-top: 2px solid var(--border); margin: 3rem 0;">
+        <div class="threshold-info">
+            <h2>📊 Skala Interpretacji Wyników</h2>
+            <p class="threshold-description">Poniżej zobacz, gdzie pasuje Twój wynik w stosunku do innych respondentów:</p>
+            <div class="threshold-bars">
+                ${thresholds.map((t, idx) => `
+                    <div class="threshold-bar ${idx === userThreshold ? 'current-threshold' : ''}">
+                        <div class="threshold-color" style="background-color: ${t.color};"></div>
+                        <div class="threshold-details">
+                            <div class="threshold-category">${t.category}</div>
+                            <div class="threshold-range">Punkty: ${t.min}-${t.max}</div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Insert threshold info after interpretation
+    const interpretationDiv = document.getElementById('interpretation');
+    interpretationDiv.insertAdjacentHTML('afterend', thresholdHtml);
     
     // Scroll to results
     document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
@@ -207,10 +375,11 @@ function clearAllData() {
 
 // Show new survey
 function showNewSurvey() {
-    document.getElementById('surveySection').style.display = 'block';
+    document.getElementById('startSection').style.display = 'block';
     document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('surveySection').style.display = 'none';
     document.getElementById('procrastinationForm').reset();
-    document.getElementById('surveySection').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('startSection').scrollIntoView({ behavior: 'smooth' });
 }
 
 // Add event listeners for buttons

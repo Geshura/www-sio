@@ -766,6 +766,298 @@ select option {
     }
 }
 
+/* Modal Survey Styles */
+.question-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Progress Bar */
+.progress-container {
+    padding: 2rem 2rem 1rem 2rem;
+    position: relative;
+}
+
+.progress-background {
+    width: 100%;
+    height: 8px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #34d399);
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.progress-text {
+    position: absolute;
+    top: 0.5rem;
+    right: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--card-bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.question-number {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 1rem 0;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-question {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.scale-legend-modal {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.legend-item-modal {
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.legend-item-modal strong {
+    display: block;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.modal-scale-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.modal-scale-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.modal-scale-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.modal-scale-option input[type="radio"]:checked + .scale-value {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.scale-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    border: 2px solid var(--border);
+    border-radius: 0.75rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    background: var(--card-bg);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.modal-scale-option:hover .scale-value {
+    border-color: var(--primary);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+/* Threshold Information */
+.threshold-info {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(239, 68, 68, 0.05));
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    border: 1px solid var(--border);
+}
+
+.threshold-info h2 {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+}
+
+.threshold-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.threshold-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.threshold-bar {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    border: 2px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.threshold-bar.current-threshold {
+    border-color: var(--primary);
+    background: rgba(16, 185, 129, 0.08);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+    transform: translateX(8px);
+}
+
+.threshold-color {
+    width: 12px;
+    height: 60px;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+.threshold-details {
+    flex: 1;
+}
+
+.threshold-category {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+}
+
+.threshold-range {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95vw;
+        border-radius: 1.5rem;
+    }
+    
+    .progress-container {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    
+    .scale-legend-modal {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.3rem;
+        font-size: 0.75rem;
+    }
+    
+    .modal-scale-options {
+        gap: 0.75rem;
+    }
+    
+    .threshold-bar {
+        padding: 0.75rem;
+    }
+    
+    .threshold-bar.current-threshold {
+        transform: translateX(4px);
+    }
+}
+
 @media (max-width: 480px) {
     .header h1, .results-header h1 {
         font-size: 1.75rem;
@@ -808,5 +1100,40 @@ select option {
     .pie-chart {
         width: 200px;
         height: 200px;
+    }
+    
+    .modal-body {
+        padding: 1.5rem;
+    }
+    
+    .modal-question {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .scale-legend-modal {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.2rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.65rem;
+    }
+    
+    .modal-scale-options {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .progress-text {
+        font-size: 0.75rem;
+        right: 1.5rem;
+        padding: 0.2rem 0.5rem;
+    }
+    
+    .modal-footer {
+        padding: 1rem 1.5rem;
+    }
+    
+    .threshold-info {
+        padding: 1.5rem;
     }
 }

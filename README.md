@@ -4,13 +4,15 @@ Nowoczesna, responsywna aplikacja ankietowa z zaawansowaną wizualizacją wynik�
 
 ## ✨ Funkcje
 
-- 📝 Interaktywny formularz ankiety z różnymi typami pytań
-- 📊 Zaawansowana wizualizacja danych (wykresy słupkowe, kołowe)
-- 💾 Przechowywanie danych w localStorage
-- 🎨 Nowoczesny design z gradientami i animacjami
-- 📱 Pełna responsywność (desktop, tablet, mobile)
-- ⚡ Płynne animacje i przejścia
-- 🌙 Ciemny motyw z efektami glassmorphism
+- 📝 **Interaktywny formularz ankiety** - Wszystkie 9 pytań z skalą 1-5
+- 🎯 **Modalny workflow** - Każde pytanie wyświetla się w osobnym oknie
+- ⏳ **Progress bar** - Wyświetla postęp ankiety (0-100%)
+- 📊 **Rozszerzone wyniki** - Pokazuje Twój wynik wraz z informacją o wszystkich progach interpretacji
+- 💾 **Przechowywanie danych** - Lokalne przechowywanie w localStorage
+- 🎨 **Nowoczesny design** - Gradient UI z animacjami
+- 📱 **Pełna responsywność** - Desktop, tablet, mobile
+- 🌙 **Ciemny motyw** - Przełączanie między trybami
+- ⚡ **Szybkie ankiety** - Auto-przejście do następnego pytania po wyborze odpowiedzi
 
 ## 🚀 Jak uruchomić
 
