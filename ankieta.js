@@ -82,16 +82,23 @@ function showQuestion() {
     for (let i = 1; i <= 5; i++) {
         const label = document.createElement('label');
         label.className = 'scale-option';
-        label.innerHTML = `
-            <input type="radio" name="scale" value="${i}" ${answers[currentQuestion] === i ? 'checked' : ''}>
-            <label>${i}</label>
-        `;
         
-        label.addEventListener('change', (e) => {
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'scale';
+        input.value = i;
+        if (answers[currentQuestion] === i) input.checked = true;
+        
+        const span = document.createElement('span');
+        span.textContent = i;
+        
+        input.addEventListener('change', (e) => {
             answers[currentQuestion] = parseInt(e.target.value);
             updateNavigation();
         });
         
+        label.appendChild(input);
+        label.appendChild(span);
         container.appendChild(label);
     }
     

@@ -278,14 +278,14 @@ body.dark-mode .info-box {
     accent-color: var(--primary);
 }
 
-.scale-option label {
+.scale-option span {
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--text);
     cursor: pointer;
 }
 
-.scale-option input:checked + label {
+.scale-option input:checked + span {
     color: var(--primary);
 }
 
