@@ -472,9 +472,9 @@ body.dark-mode {
 
 .threshold-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
-    padding: 14px 16px;
+    padding: 16px 18px;
     border: 2px solid var(--border);
     border-radius: 10px;
     background: var(--bg-white);
@@ -496,6 +496,7 @@ body.dark-mode {
     height: 28px;
     border-radius: 50%;
     flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .threshold-content {
@@ -508,7 +509,9 @@ body.dark-mode {
     font-weight: 600;
     color: var(--text);
     font-size: 0.95rem;
-    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .threshold-range {
