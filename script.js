@@ -9,6 +9,67 @@
  * - Lub gotowe rozwiązanie (Google Forms, Typeform)
  */
 
+// Theme management
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    applyTheme(savedTheme);
+}
+
+function applyTheme(theme) {
+    const html = document.documentElement;
+    
+    if (theme === 'dark') {
+        html.classList.add('dark-mode');
+        html.classList.remove('light-mode');
+        updateThemeIcon('☀️');
+    } else if (theme === 'light') {
+        html.classList.remove('dark-mode');
+        html.classList.add('light-mode');
+        updateThemeIcon('🌙');
+    } else {
+        // auto
+        html.classList.remove('dark-mode', 'light-mode');
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        updateThemeIcon(isDark ? '☀️' : '🌙');
+    }
+    
+    localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = localStorage.getItem('theme') || 'auto';
+    
+    let newTheme = 'auto';
+    if (currentTheme === 'auto') {
+        newTheme = 'dark';
+    } else if (currentTheme === 'dark') {
+        newTheme = 'light';
+    }
+    
+    applyTheme(newTheme);
+}
+
+function updateThemeIcon(icon) {
+    const toggle = document.getElementById('themeToggle');
+    if (toggle) {
+        toggle.querySelector('.theme-icon').textContent = icon;
+    }
+}
+
+// Initialize theme on page load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTheme);
+} else {
+    initTheme();
+}
+
 // Local storage key for responses
 const STORAGE_KEY = 'procrastinationResponses';
 

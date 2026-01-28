@@ -5,13 +5,22 @@
 }
 
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --primary-light: #818cf8;
-    --secondary: #ec4899;
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --primary-light: #34d399;
+    --secondary: #06b6d4;
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
+    --bg: #f8fafb;
+    --card-bg: #ffffff;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --shadow: rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode {
     --bg: #0f172a;
     --card-bg: #1e293b;
     --text: #f1f5f9;
@@ -20,14 +29,30 @@
     --shadow: rgba(0, 0, 0, 0.3);
 }
 
+@media (prefers-color-scheme: dark) {
+    :root:not(.light-mode) {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --border: #334155;
+        --shadow: rgba(0, 0, 0, 0.3);
+    }
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
     min-height: 100vh;
     padding: 2rem 1rem;
     color: var(--text);
     position: relative;
     overflow-x: hidden;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #0f172a 0%, #1a1f2e 100%);
 }
 
 body::before {
@@ -37,9 +62,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    background: transparent;
     pointer-events: none;
     z-index: 0;
 }
@@ -51,15 +74,43 @@ body::before {
     z-index: 1;
 }
 
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow);
+    z-index: 100;
+}
+
+.theme-toggle:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.1) rotate(20deg);
+}
+
+.theme-toggle:active {
+    transform: scale(1.08) rotate(20deg);
+}
+
 .survey-card, .results-card {
     background: var(--card-bg);
-    border-radius: 24px;
+    border-radius: 16px;
     padding: 3rem;
-    box-shadow: 
-        0 20px 60px var(--shadow),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px var(--shadow);
     animation: slideUp 0.6s ease-out;
-    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
 }
 
 @keyframes slideUp {
@@ -82,10 +133,7 @@ body::before {
 
 .header h1 {
     font-size: 2.5rem;
-    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-dark);
     margin-bottom: 0.5rem;
     font-weight: 800;
 }
@@ -98,9 +146,10 @@ body::before {
 .question-block {
     margin-bottom: 3rem;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
+    background: #f9fafb;
+    border-radius: 12px;
     animation: fadeIn 0.5s ease-out backwards;
+    border: 1px solid var(--border);
 }
 
 .question-block:nth-child(1) { animation-delay: 0.1s; }
@@ -200,7 +249,7 @@ body::before {
 }
 
 .info-note {
-    background: rgba(16, 185, 129, 0.15);
+    background: #f0fdf4;
     padding: 0.75rem 1rem;
     border-radius: 8px;
     border-left: 3px solid var(--success);
@@ -241,26 +290,25 @@ body::before {
     flex-direction: column;
     align-items: center;
     padding: 1.25rem 0.75rem;
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     position: relative;
 }
 
 .scale-option:hover {
-    border-color: var(--primary-light);
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    border-color: var(--primary);
+    background: #f0fdf4;
+    transform: translateY(-3px);
 }
 
 .scale-option:has(input:checked) {
     border-color: var(--primary);
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
-    transform: translateY(-7px) scale(1.08);
-    box-shadow: 0 10px 35px rgba(99, 102, 241, 0.5);
+    background: linear-gradient(135deg, #f0fdf4, #e0f2fe);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
 .scale-option input {
@@ -380,9 +428,9 @@ select option {
 .submit-btn {
     width: 100%;
     padding: 1.25rem 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--primary);
     border: none;
-    border-radius: 16px;
+    border-radius: 12px;
     color: white;
     font-size: 1.2rem;
     font-weight: 700;
@@ -392,13 +440,14 @@ select option {
     justify-content: center;
     gap: 1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
     margin-top: 2rem;
 }
 
 .submit-btn:hover {
+    background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
 }
 
 .submit-btn:active {
@@ -659,6 +708,14 @@ select option {
 @media (max-width: 768px) {
     body {
         padding: 1rem;
+    }
+
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
     }
 
     .survey-card, .results-card {
