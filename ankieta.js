@@ -111,12 +111,7 @@ function showQuestion() {
         button.className = 'scale-option-btn';
         button.type = 'button';
         button.dataset.value = i;
-        
-        const numberSpan = document.createElement('span');
-        numberSpan.className = 'scale-btn-number';
-        numberSpan.textContent = i;
-        
-        button.appendChild(numberSpan);
+        button.setAttribute('aria-label', `Opcja ${i}`);
         
         if (answers[currentQuestion] === i) {
             button.classList.add('selected');

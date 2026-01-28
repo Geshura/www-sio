@@ -323,24 +323,6 @@ body.dark-mode {
     position: relative;
 }
 
-.scale-option-btn::after {
-    content: attr(data-value);
-    position: absolute;
-    bottom: -24px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    color: var(--text-light);
-    font-weight: 600;
-}
-
-.scale-btn-number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text);
-    transition: all 0.2s ease;
-}
-
 .scale-option-btn:hover {
     border-color: var(--primary);
     background: var(--bg-light);
@@ -353,10 +335,6 @@ body.dark-mode {
     background: var(--primary);
     box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
     transform: translateY(-2px);
-}
-
-.scale-option-btn.selected .scale-btn-number {
-    color: white;
 }
 
 .scale-option-btn:active {
@@ -798,15 +776,6 @@ body.dark-mode {
         width: 60px;
         height: 60px;
         border-width: 2px;
-    }
-
-    .scale-btn-number {
-        font-size: 1.6rem;
-    }
-
-    .scale-option-btn::after {
-        font-size: 0.7rem;
-        bottom: -20px;
     }
 
     .navigation {
