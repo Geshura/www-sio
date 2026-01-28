@@ -1,14 +1,14 @@
 // Questions with reversed flags
 const QUESTIONS = [
-    { text: "Odwlekam zadania ponad rozsądny czas", reversed: false },
-    { text: "Robię wszystko kiedy uważam, że to musi być zrobione", reversed: true },
-    { text: "Często żałuję, że nie zajęłem się zadaniem wcześniej", reversed: false },
-    { text: "Są aspekty mojego życia, które odkładam, chociaż wiem, że nie powinienem", reversed: false },
-    { text: "Jeśli jest coś co powinienem wykonać, robię to zanim przejdę do łatwiejszego zadania", reversed: true },
-    { text: "Odkładam rzeczy do zrobienia tak długo, że mój dobrostan lub efektywność tracą na tym", reversed: false },
-    { text: "Pod koniec dnia wiem, że mógłbym spędzić czas lepiej", reversed: false },
-    { text: "Spędzam mój czas mądrze", reversed: true },
-    { text: "Kiedy powinienem robić jedną rzecz, robię inną", reversed: false }
+    { text: "Zwlekam z wykonaniem zadań dłużej, niż jest to zasadne.", reversed: false },
+    { text: "Robię wszystko wtedy, kiedy uważam, że powinno zostać zrobione.", reversed: true },
+    { text: "Często żałuję, że nie zabrałem/am się za zadania wcześniej.", reversed: false },
+    { text: "Są aspekty mojego życia, które odkładam na później, mimo że wiem, że nie powinienem/powinnam.", reversed: false },
+    { text: "Jeśli jest coś, co muszę zrobić, zajmuję się tym przed przejściem do mniej ważnych spraw.", reversed: true },
+    { text: "Odkładam sprawy tak długo, że moje samopoczucie lub efektywność niepotrzebnie na tym cierpią.", reversed: false },
+    { text: "Pod koniec dnia mam świadomość, że mogłem/mogłam lepiej wykorzystać ten czas.", reversed: false },
+    { text: "Mądrze dysponuję swoim czasem.", reversed: true },
+    { text: "Kiedy powinienem/powinnam robić jedną rzecz, zajmuję się czymś innym.", reversed: false }
 ];
 
 const THRESHOLDS = [
