@@ -107,11 +107,11 @@ function showQuestion() {
     container.innerHTML = '';
     
     const labels = [
-        'Bardzo rzadko prawdziwe dla mnie',
-        'Rzadko prawdziwe dla mnie',
-        'Czasami prawdziwe dla mnie',
-        'Często prawdziwe dla mnie',
-        'Bardzo często prawdziwe dla mnie'
+        'Zdecydowanie się nie zgadzam',
+        'Raczej się nie zgadzam',
+        'Trudno powiedzieć / Częściowo się zgadzam',
+        'Raczej się zgadzam',
+        'Zdecydowanie się zgadzam'
     ];
     
     for (let i = 1; i <= 5; i++) {
