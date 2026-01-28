@@ -12,11 +12,11 @@ const QUESTIONS = [
 ];
 
 const THRESHOLDS = [
-    { min: 9, max: 19, label: "🎯 Dolne 10% - Mistrzowskie zarządzanie czasem", color: "#16a34a" },
-    { min: 20, max: 23, label: "✅ Dolne 10-25% - Bardzo dobra samodyscyplina", color: "#22c55e" },
-    { min: 24, max: 31, label: "⚖️ Środkowe 50% - Przeciętny prokrastynator", color: "#f59e0b" },
-    { min: 32, max: 36, label: "⚠️ Górne 10-25% - Wyraźna tendencja do prokrastynacji", color: "#fb923c" },
-    { min: 37, max: 45, label: "🚨 Górne 10% - Chroniczna prokrastynacja", color: "#ef4444" }
+    { min: 9, max: 19, label: "Dolne 10% - Mistrzowskie zarządzanie czasem", color: "#16a34a" },
+    { min: 20, max: 23, label: "Dolne 10-25% - Bardzo dobra samodyscyplina", color: "#22c55e" },
+    { min: 24, max: 31, label: "Środkowe 50% - Przeciętny prokrastynator", color: "#f59e0b" },
+    { min: 32, max: 36, label: "Górne 10-25% - Wyraźna tendencja do prokrastynacji", color: "#fb923c" },
+    { min: 37, max: 45, label: "Górne 10% - Chroniczna prokrastynacja", color: "#ef4444" }
 ];
 
 // State
@@ -42,11 +42,11 @@ function setupThemeToggle() {
         isDarkMode = !isDarkMode;
         document.body.classList.toggle('dark-mode');
         localStorage.setItem('darkMode', isDarkMode);
-        toggle.textContent = isDarkMode ? '☀️' : '🌙';
+        toggle.textContent = isDarkMode ? 'Light' : 'Dark';
     });
     
     // Set initial icon
-    toggle.textContent = isDarkMode ? '☀️' : '🌙';
+    toggle.textContent = isDarkMode ? 'Light' : 'Dark';
 }
 
 // ============ EVENT LISTENERS ============
