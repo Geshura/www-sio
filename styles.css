@@ -22,7 +22,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     min-height: 100vh;
     padding: 2rem 1rem;
     color: var(--text);
@@ -96,7 +96,10 @@ body::before {
 }
 
 .question-block {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
     animation: fadeIn 0.5s ease-out backwards;
 }
 
@@ -120,10 +123,12 @@ body::before {
 
 .question {
     display: block;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
     color: var(--text);
+    line-height: 1.6;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .radio-group, .checkbox-group {
@@ -194,6 +199,16 @@ body::before {
     line-height: 1.6;
 }
 
+.info-note {
+    background: rgba(16, 185, 129, 0.15);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--success);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+}
+
 .scale-legend {
     display: flex;
     flex-direction: column;
@@ -225,26 +240,27 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem 0.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid transparent;
-    border-radius: 12px;
+    padding: 1.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
 
 .scale-option:hover {
     border-color: var(--primary-light);
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
 }
 
 .scale-option:has(input:checked) {
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.3);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.4));
+    transform: translateY(-7px) scale(1.08);
+    box-shadow: 0 10px 35px rgba(99, 102, 241, 0.5);
 }
 
 .scale-option input {
@@ -255,9 +271,10 @@ body::before {
 }
 
 .scale-option span {
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 800;
     color: var(--text);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Personal result display */

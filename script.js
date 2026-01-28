@@ -1,4 +1,15 @@
-// Simulate database with localStorage
+/**
+ * UWAGA: To jest aplikacja frontend-only!
+ * Dane są zapisywane LOKALNIE w localStorage przeglądarki.
+ * Każdy użytkownik widzi tylko swoje dane.
+ * 
+ * Aby zbierać dane centralnie, potrzebujesz:
+ * - Backend serwer (Node.js, Python, PHP)
+ * - Bazę danych (Firebase, Supabase, MongoDB)
+ * - Lub gotowe rozwiązanie (Google Forms, Typeform)
+ */
+
+// Local storage key for responses
 const STORAGE_KEY = 'procrastinationResponses';
 
 // Initialize or get existing responses
@@ -161,20 +172,12 @@ if (newSurveyBtn) {
 function calculateStats() {
     const responses = getResponses();
     
-    if (responses.length === 0) {
-        return null;
-    }
+    if (responses.length === 0) return null;
     
     const stats = {
         totalResponses: responses.length,
         avgScore: 0,
-        scoreDistribution: {
-            '1-19': 0,
-            '20-23': 0,
-            '24-31': 0,
-            '32-36': 0,
-            '37-45': 0
-        },
+        scoreDistribution: { '1-19': 0, '20-23': 0, '24-31': 0, '32-36': 0, '37-45': 0 },
         questionAverages: {}
     };
     
@@ -185,6 +188,7 @@ function calculateStats() {
         stats.questionAverages[`q${i}`] = 0;
     }
     
+    // Calculate distributions and averages
     responses.forEach(r => {
         totalScore += r.score;
         
@@ -201,9 +205,8 @@ function calculateStats() {
         }
     });
     
+    // Calculate final averages
     stats.avgScore = (totalScore / responses.length).toFixed(1);
-    
-    // Calculate averages for each question
     for (let i = 1; i <= 9; i++) {
         stats.questionAverages[`q${i}`] = (stats.questionAverages[`q${i}`] / responses.length).toFixed(2);
     }
