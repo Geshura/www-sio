@@ -106,12 +106,20 @@ function showQuestion() {
     
     container.innerHTML = '';
     
+    const labels = [
+        'Bardzo rzadko prawdziwe dla mnie',
+        'Rzadko prawdziwe dla mnie',
+        'Czasami prawdziwe dla mnie',
+        'Często prawdziwe dla mnie',
+        'Bardzo często prawdziwe dla mnie'
+    ];
+    
     for (let i = 1; i <= 5; i++) {
         const button = document.createElement('button');
         button.className = 'scale-option-btn';
         button.type = 'button';
         button.dataset.value = i;
-        button.setAttribute('aria-label', `Opcja ${i}`);
+        button.textContent = labels[i - 1];
         
         if (answers[currentQuestion] === i) {
             button.classList.add('selected');
