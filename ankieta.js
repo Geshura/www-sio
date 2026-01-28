@@ -106,7 +106,7 @@ function showQuestion() {
     
     container.innerHTML = '';
     
-    const labels = ['Zdecydowanie się nie zgadzam', 'Się nie zgadzam', 'Neutralnie', 'Się zgadzam', 'Zdecydowanie się zgadzam'];
+    const labels = ['Bardzo rzadko prawdziwe dla mnie', 'Rzadko prawdziwe dla mnie', 'Czasami prawdziwe dla mnie', 'Często prawdziwe dla mnie', 'Bardzo często prawdziwe dla mnie'];
     
     for (let i = 1; i <= 5; i++) {
         const label = document.createElement('label');
