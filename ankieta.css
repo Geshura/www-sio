@@ -130,9 +130,10 @@ body.dark-mode {
 
 /* Start Screen */
 .start-card h1 {
-    font-size: 2.5rem;
-    margin-bottom: 5px;
+    font-size: 2.2rem;
+    margin-bottom: 8px;
     color: var(--primary);
+    line-height: 1.2;
 }
 
 .start-card .author {
@@ -144,15 +145,15 @@ body.dark-mode {
 
 .instructions {
     margin: 30px 0;
-    padding: 20px;
+    padding: 24px;
     background: var(--bg-light);
-    border-left: 4px solid var(--primary);
-    border-radius: 8px;
+    border-left: 5px solid var(--primary);
+    border-radius: 10px;
 }
 
 .instructions h2 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
     color: var(--primary);
 }
 
@@ -160,19 +161,20 @@ body.dark-mode {
     margin-bottom: 15px;
     line-height: 1.8;
     color: var(--text-light);
+    font-size: 0.95rem;
 }
 
 .scale-legend {
     margin: 20px 0;
     display: grid;
-    gap: 12px;
+    gap: 10px;
 }
 
 .scale-item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 12px;
+    gap: 12px;
+    padding: 12px 14px;
     background: var(--bg-white);
     border-radius: 8px;
     border: 1px solid var(--border);
@@ -182,25 +184,31 @@ body.dark-mode {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: var(--primary);
     color: white;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 0.95rem;
     flex-shrink: 0;
 }
 
 .scale-label {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-light);
+    flex: 1;
 }
 
 .time-estimate {
-    margin: 30px 0;
-    font-size: 1.1rem;
+    margin: 25px 0;
+    font-size: 1rem;
     color: var(--text-light);
     text-align: center;
+    padding: 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    border: 1px solid var(--border);
 }
 
 /* Survey Screen */
