@@ -106,30 +106,34 @@ function showQuestion() {
     
     container.innerHTML = '';
     
-    const labels = ['Bardzo rzadko prawdziwe dla mnie', 'Rzadko prawdziwe dla mnie', 'Czasami prawdziwe dla mnie', 'Często prawdziwe dla mnie', 'Bardzo często prawdziwe dla mnie'];
-    
     for (let i = 1; i <= 5; i++) {
-        const label = document.createElement('label');
-        label.className = 'scale-option';
-        label.title = labels[i - 1];
+        const button = document.createElement('button');
+        button.className = 'scale-option-btn';
+        button.type = 'button';
+        button.dataset.value = i;
         
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'scale';
-        input.value = i;
-        if (answers[currentQuestion] === i) input.checked = true;
+        const numberSpan = document.createElement('span');
+        numberSpan.className = 'scale-btn-number';
+        numberSpan.textContent = i;
         
-        const span = document.createElement('span');
-        span.textContent = i;
+        button.appendChild(numberSpan);
         
-        input.addEventListener('change', (e) => {
-            answers[currentQuestion] = parseInt(e.target.value);
+        if (answers[currentQuestion] === i) {
+            button.classList.add('selected');
+        }
+        
+        button.addEventListener('click', () => {
+            answers[currentQuestion] = i;
+            // Remove selected from all buttons
+            container.querySelectorAll('.scale-option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            // Add selected to clicked button
+            button.classList.add('selected');
             updateNavigation();
         });
         
-        label.appendChild(input);
-        label.appendChild(span);
-        container.appendChild(label);
+        container.appendChild(button);
     }
     
     updateNavigation();
