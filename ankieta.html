@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankieta - Skala Irracjonalnego Odwlekania</title>
+    <link rel="stylesheet" href="ankieta.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button id="themeToggle" class="theme-toggle" title="Zmień motyw">🌙</button>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <div class="container">
+            <div class="start-card">
+                <h1>Skala Irracjonalnego Odwlekania</h1>
+                <p class="author">P. Steel (2010)</p>
+                
+                <div class="instructions">
+                    <h2>Instrukcja</h2>
+                    <p>Poniżej znajdziesz 9 stwierdzeń dotyczących Twojego podejścia do zadań i zarządzania czasem.</p>
+                    <p>Oceń każde stwierdzenie w skali:</p>
+                    
+                    <div class="scale-legend">
+                        <div class="scale-item">
+                            <span class="scale-number">1</span>
+                            <span class="scale-label">Zdecydowanie się nie zgadzam</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-number">2</span>
+                            <span class="scale-label">Się nie zgadzam</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-number">3</span>
+                            <span class="scale-label">Neutralnie</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-number">4</span>
+                            <span class="scale-label">Się zgadzam</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-number">5</span>
+                            <span class="scale-label">Zdecydowanie się zgadzam</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="time-estimate">⏱️ Czas wypełnienia: ok. 3-5 minut</p>
+
+                <button id="startBtn" class="btn btn-primary">Rozpocznij ankietę</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Survey Screen -->
+    <div id="surveyScreen" class="screen" style="display: none;">
+        <div class="container">
+            <div class="question-card">
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div id="progressText" class="progress-text">1/9</div>
+                </div>
+
+                <!-- Question -->
+                <div class="question-section">
+                    <h2 id="questionText" class="question-text">Pytanie</h2>
+                </div>
+
+                <!-- Scale Options -->
+                <div id="scaleOptions" class="scale-options-container"></div>
+
+                <!-- Navigation -->
+                <div class="navigation">
+                    <button id="prevBtn" class="btn btn-secondary" style="display: none;">← Wróć</button>
+                    <button id="nextBtn" class="btn btn-primary" style="display: none;">Dalej →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="screen" style="display: none;">
+        <div class="container">
+            <div class="results-card">
+                <h1>Twoje Wyniki</h1>
+
+                <!-- Score Display -->
+                <div class="score-section">
+                    <div class="score-box">
+                        <div id="scoreDisplay" class="score-number">-</div>
+                        <div class="score-label">punktów</div>
+                    </div>
+                </div>
+
+                <!-- Interpretation -->
+                <div id="interpretation" class="interpretation-box">
+                    <!-- Wstawione dynamicznie -->
+                </div>
+
+                <!-- Thresholds -->
+                <div class="thresholds-section">
+                    <h2>Wszystkie kategorie</h2>
+                    <div id="thresholdList" class="threshold-list">
+                        <!-- Wstawione dynamicznie -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions">
+                    <button id="restartBtn" class="btn btn-secondary">🔄 Ponownie</button>
+                    <button id="exportBtn" class="btn btn-success">📥 Pobierz wynik</button>
+                </div>
+
+                <!-- History -->
+                <div class="history-section" id="historySection" style="display: none;">
+                    <h3>Historia ankiet (ostatnie 5)</h3>
+                    <div id="historyList" class="history-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="ankieta.js"></script>
+</body>
+</html>
