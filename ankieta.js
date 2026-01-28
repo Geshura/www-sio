@@ -42,11 +42,11 @@ function setupThemeToggle() {
         isDarkMode = !isDarkMode;
         document.body.classList.toggle('dark-mode');
         localStorage.setItem('darkMode', isDarkMode);
-        toggle.textContent = isDarkMode ? 'Light' : 'Dark';
+        toggle.textContent = isDarkMode ? '☀️' : '🌙';
     });
     
     // Set initial icon
-    toggle.textContent = isDarkMode ? 'Light' : 'Dark';
+    toggle.textContent = isDarkMode ? '☀️' : '🌙';
 }
 
 // ============ EVENT LISTENERS ============

@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Theme Toggle -->
-    <button id="themeToggle" class="theme-toggle" title="Zmień motyw">🌙</button>
+    <button id="themeToggle" class="theme-toggle" title="Zmień motyw">☀️</button>
 
     <!-- Start Screen -->
     <div id="startScreen" class="screen active">
@@ -111,6 +111,14 @@
                     </div>
                 </div>
 
+                <!-- All Descriptions -->
+                <div class="all-descriptions-section">
+                    <button id="toggleDescriptionsBtn" class="btn btn-secondary btn-full-width">Pokaż wszystkie opisy</button>
+                    <div id="allDescriptions" class="all-descriptions" style="display: none;">
+                        <!-- Wstawione dynamicznie -->
+                    </div>
+                </div>
+
                 <!-- Actions -->
                 <div class="actions">
                     <button id="restartBtn" class="btn btn-secondary">🔄 Ponownie</button>
@@ -121,14 +129,9 @@
                     <h3>Historia ankiet (ostatnie 5)</h3>
                     <div id="historyList" class="history-list"></div>
                 </div>
-
-                <!-- All Descriptions -->
-                <div class="all-descriptions-section">
-                    <button id="toggleDescriptionsBtn" class="btn btn-secondary">Pokaż wszystkie opisy</button>
-                    <div id="allDescriptions" class="all-descriptions" style="display: none;">
-                        <!-- Wstawione dynamicznie -->
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="ankieta.js"></script>
 </body>

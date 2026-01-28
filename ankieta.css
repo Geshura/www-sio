@@ -589,6 +589,12 @@ body.dark-mode {
 
 #toggleDescriptionsBtn {
     margin-bottom: 20px;
+    width: 100%;
+}
+
+.btn-full-width {
+    width: 100% !important;
+    min-width: unset !important;
 }
 
 .all-descriptions {
