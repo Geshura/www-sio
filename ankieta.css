@@ -579,6 +579,47 @@ body.dark-mode {
     font-size: 0.8rem;
 }
 
+/* All Descriptions Section */
+.all-descriptions-section {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 2px solid var(--border);
+    text-align: left;
+}
+
+#toggleDescriptionsBtn {
+    margin-bottom: 20px;
+}
+
+.all-descriptions {
+    display: grid;
+    gap: 16px;
+}
+
+.description-item {
+    padding: 20px;
+    background: var(--bg-light);
+    border-left: 5px solid;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.description-range {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.description-text {
+    color: var(--text-light);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
 /* Responsive Design */
 
 /* Tablets: 481px - 768px */

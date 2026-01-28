@@ -275,6 +275,9 @@ function showResults(score) {
     // Show history if available
     showHistoryIfAvailable();
     
+    // Setup all descriptions toggle
+    setupAllDescriptions();
+    
     resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -399,6 +402,61 @@ function exportResult() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+}
+
+// ============ ALL DESCRIPTIONS ============
+
+function setupAllDescriptions() {
+    const toggleBtn = document.getElementById('toggleDescriptionsBtn');
+    const descriptionsDiv = document.getElementById('allDescriptions');
+    
+    if (!toggleBtn || !descriptionsDiv) return;
+    
+    toggleBtn.addEventListener('click', () => {
+        if (descriptionsDiv.style.display === 'none') {
+            descriptionsDiv.style.display = 'grid';
+            toggleBtn.textContent = 'Ukryj wszystkie opisy';
+        } else {
+            descriptionsDiv.style.display = 'none';
+            toggleBtn.textContent = 'Pokaż wszystkie opisy';
+        }
+    });
+    
+    // Populate descriptions
+    descriptionsDiv.innerHTML = '';
+    
+    const descriptions = [
+        { range: '9-19 punktów', label: THRESHOLDS[0].label, color: THRESHOLDS[0].color, text: getInterpretationByRange(9) },
+        { range: '20-23 punkty', label: THRESHOLDS[1].label, color: THRESHOLDS[1].color, text: getInterpretationByRange(20) },
+        { range: '24-31 punktów', label: THRESHOLDS[2].label, color: THRESHOLDS[2].color, text: getInterpretationByRange(24) },
+        { range: '32-36 punktów', label: THRESHOLDS[3].label, color: THRESHOLDS[3].color, text: getInterpretationByRange(32) },
+        { range: '37-45 punktów', label: THRESHOLDS[4].label, color: THRESHOLDS[4].color, text: getInterpretationByRange(37) }
+    ];
+    
+    for (let desc of descriptions) {
+        const item = document.createElement('div');
+        item.className = 'description-item';
+        item.style.borderLeftColor = desc.color;
+        item.innerHTML = `
+            <div class="description-range">${desc.range} - ${desc.label}</div>
+            <div class="description-text">${desc.text}</div>
+        `;
+        descriptionsDiv.appendChild(item);
+    }
+}
+
+function getInterpretationByRange(score) {
+    if (score <= 19) {
+        return "Gratulacje! Należysz do elity osób, które skutecznie zarządzają swoim czasem. Odwlekanie zadań praktycznie Ci nie przeszkadza. Twoje nawyki są wzorem dla innych - kontynuuj to, co robisz!";
+    } else if (score <= 23) {
+        return "Świetnie sobie radzisz z zarządzaniem czasem! Prokrastynacja pojawia się u Ciebie rzadko i nie stanowi poważnego problemu. Twoja samodyscyplina jest godna podziwu.";
+    } else if (score <= 31) {
+        return "Jesteś w grupie większości ludzi. Czasami odkładasz sprawy na później, ale jest to normalne. Rozważ wdrożenie technik planowania, takich jak metoda Pomodoro czy dzielenie zadań na mniejsze kroki.";
+    } else if (score <= 36) {
+        return "Prokrastynacja stanowi dla Ciebie istotny problem, który wpływa na Twoją produktywność i dobre samopoczucie. Warto poważnie zastanowić się nad zmianą nawyków. Spróbuj systematycznych strategii, takich jak kalendarz zadań czy reward system.";
+    } else {
+        return "Prokrastynacja jest dla Ciebie poważnym, chronicznym problemem. Zdecydowanie zalecam rozważenie pracy z psychologiem lub specjalistą ds. zarządzania czasem. Rozpocznij od małych zmian i buduj nowe nawyki krok po kroku.";
+    }
 }
 
 // ============ START ============
