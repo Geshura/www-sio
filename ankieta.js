@@ -55,14 +55,14 @@ function setupEventListeners() {
     const startBtn = document.getElementById('startBtn');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const finishBtn = document.getElementById('finishBtn');
     const restartBtn = document.getElementById('restartBtn');
-    const exportBtn = document.getElementById('exportBtn');
     
     if (startBtn) startBtn.addEventListener('click', startSurvey);
     if (prevBtn) prevBtn.addEventListener('click', prevQuestion);
     if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
+    if (finishBtn) finishBtn.addEventListener('click', finishSurvey);
     if (restartBtn) restartBtn.addEventListener('click', startSurvey);
-    if (exportBtn) exportBtn.addEventListener('click', exportResult);
 }
 
 // ============ SURVEY FLOW ============
@@ -141,19 +141,18 @@ function updateNavigation() {
     
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const finishBtn = document.getElementById('finishBtn');
     
     if (prevBtn) {
         prevBtn.style.display = currentQuestion > 0 ? 'inline-flex' : 'none';
     }
     
     if (nextBtn) {
-        if (isLast && hasAnswer) {
-            nextBtn.style.display = 'none';
-            // Auto-finish after brief delay
-            setTimeout(() => finishSurvey(), 500);
-        } else {
-            nextBtn.style.display = hasAnswer ? 'inline-flex' : 'none';
-        }
+        nextBtn.style.display = (!isLast && hasAnswer) ? 'inline-flex' : 'none';
+    }
+    
+    if (finishBtn) {
+        finishBtn.style.display = (isLast && hasAnswer) ? 'inline-flex' : 'none';
     }
 }
 
