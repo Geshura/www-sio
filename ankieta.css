@@ -752,8 +752,8 @@ body.dark-mode {
 
     /* Question Card */
     .question-card {
-        padding: 24px 18px;
-        gap: 24px;
+        padding: 20px 16px;
+        gap: 20px;
     }
 
     .progress-bar {
@@ -764,6 +764,26 @@ body.dark-mode {
         font-size: 0.8rem;
     }
 
+    /* Scale Legend Fixed */
+    .scale-legend-fixed {
+        gap: 6px;
+        padding: 12px;
+    }
+
+    .scale-legend-item {
+        gap: 8px;
+    }
+
+    .scale-legend-number {
+        width: 24px;
+        height: 24px;
+        font-size: 0.8rem;
+    }
+
+    .scale-legend-text {
+        font-size: 0.75rem;
+    }
+
     .question-text {
         font-size: 1.1rem;
         line-height: 1.6;
@@ -771,26 +791,28 @@ body.dark-mode {
 
     .scale-options-container {
         gap: 10px;
+        margin-bottom: 20px;
     }
 
-    .scale-option {
-        padding: 14px 14px;
-        gap: 12px;
-        min-height: 52px;
+    .scale-option-btn {
+        width: 60px;
+        height: 60px;
+        border-width: 2px;
     }
 
-    .scale-option input[type="radio"] {
-        width: 20px;
-        height: 20px;
+    .scale-btn-number {
+        font-size: 1.6rem;
     }
 
-    .scale-option input[type="radio"] + span {
-        font-size: 1rem;
+    .scale-option-btn::after {
+        font-size: 0.7rem;
+        bottom: -20px;
     }
 
     .navigation {
         gap: 8px;
         flex-direction: column;
+        margin-top: 20px;
     }
 
     .navigation .btn {
